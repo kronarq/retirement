@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 # from gui import ToolTip
 
@@ -52,7 +53,12 @@ def medical_window(medical_input_window, wb, ws, username):
     # Add tooltip to the medical_expense_entry
     ToolTip(medical_expense_entry, "Enter your medical expenses in USD.")
 
-    submit_basic = tk.Button(medical_input_window, text="Submit", command=lambda: update_medical_info(wb, ws, username))
+    def submit_and_close():
+        update_medical_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        medical_input_window.destroy()
+
+    submit_basic = tk.Button(medical_input_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     medical_input_window.mainloop()

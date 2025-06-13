@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 
 
@@ -34,7 +35,12 @@ def social_security_window(security_window, wb, ws, username):
     ss_s2_entry.insert(0, ss_s2_value)
     ss_s2_entry.pack()
 
-    submit_basic = tk.Button(security_window, text="Submit", command=lambda: update_social_info(wb, ws, username))
+    def submit_and_close():
+        update_social_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        security_window.destroy()
+
+    submit_basic = tk.Button(security_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     security_window.mainloop()

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 
 def update_growth_investment_info(wb, ws, username):
@@ -98,7 +99,12 @@ def growth_and_assumptions_window(growth_window, wb, ws, username):
     cash_stdev_entry.insert(0, cash_stdev_value)
     cash_stdev_entry.pack()
 
-    submit_button = tk.Button(growth_window, text="Submit", command=lambda: update_growth_investment_info(wb, ws, username))
+    def submit_and_close():
+        update_growth_investment_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        growth_window.destroy()
+
+    submit_button = tk.Button(growth_window, text="Submit", command=submit_and_close)
     submit_button.pack()
 
     growth_window.mainloop()

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 
 
@@ -74,7 +75,12 @@ def pension_input_window(pension_window, wb, ws, username):
     pension_s2_lump_entry.insert(0, pension_s2_lump_value)
     pension_s2_lump_entry.pack()
 
-    submit_basic = tk.Button(pension_window, text="Submit", command=lambda: update_pension_info(wb, ws, username))
+    def submit_and_close():
+        update_pension_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        pension_window.destroy()
+
+    submit_basic = tk.Button(pension_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     pension_window.mainloop()
