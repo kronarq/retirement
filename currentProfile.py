@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 
 
@@ -35,7 +36,12 @@ def current_profile_window(current_window, wb, ws, username):
     after_tax_entry.insert(0, after_tax_value)
     after_tax_entry.pack()
 
-    submit_current = tk.Button(current_window, text="Submit", command=lambda: update_current_profile(wb, ws, username))
+    def submit_and_close():
+        update_current_profile(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        current_window.destroy()
+
+    submit_current = tk.Button(current_window, text="Submit", command=submit_and_close)
     submit_current.pack()
 
     current_window.mainloop()

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 
 
@@ -115,7 +116,12 @@ def inputs_window(input_window, wb, ws, username):
     charity_entry.insert(0, charity_value)
     charity_entry.pack()
 
-    submit_basic = tk.Button(input_window, text="Submit", command=lambda: update_inputs(wb, ws, username))
+    def submit_and_close():
+        update_inputs(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        input_window.destroy()
+
+    submit_basic = tk.Button(input_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     input_window.mainloop()

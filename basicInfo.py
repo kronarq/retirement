@@ -1,6 +1,7 @@
 from datetime import datetime
 from tkinter import ttk
 import tkinter as tk
+from tkinter import messagebox
 
 
 def update_basic_info(wb, ws, username):
@@ -110,8 +111,12 @@ def basic_info_window(basic_window, wb, ws, username):
     other_income_s2_combo.insert(0, other_income_s2_value)
     other_income_s2_combo.pack()
 
-    # submit_basic = tk.Button(basic_window, text="Submit", command=update_basic_info)
-    submit_basic = tk.Button(basic_window, text="Submit", command=lambda: update_basic_info(wb, ws, username))
+    def submit_and_close():
+        update_basic_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        basic_window.destroy()
+
+    submit_basic = tk.Button(basic_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     # Populate the Entry field with the current year

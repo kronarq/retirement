@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 # from gui import ToolTip
 
@@ -98,5 +99,10 @@ def growth_before_retirement_window(growth_before_window, wb, ws, username):
     ToolTip(match_hsa_entry, "Enter your match to your HSA in USD")
     ToolTip(match_stock_entry, "Enter your match to your Stocks or Savings in USD")
 
-    submit_button = tk.Button(growth_before_window, text="Submit", command=lambda: update_growth_before_retirement(wb, ws, username))
+    def submit_and_close():
+        update_growth_before_retirement(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        growth_before_window.destroy()
+
+    submit_button = tk.Button(growth_before_window, text="Submit", command=submit_and_close)
     submit_button.pack()

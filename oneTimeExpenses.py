@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from openpyxl.styles import numbers
 
 
@@ -97,7 +98,12 @@ def one_time_window(one_time_expense_window, wb, ws, username):
     miscellaneous_entry.insert(0, misc_value)
     miscellaneous_entry.pack()
 
-    submit_basic = tk.Button(one_time_expense_window, text="Submit", command=lambda: update_one_time_info(wb, ws, username))
+    def submit_and_close():
+        update_one_time_info(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        one_time_expense_window.destroy()
+
+    submit_basic = tk.Button(one_time_expense_window, text="Submit", command=submit_and_close)
     submit_basic.pack()
 
     one_time_expense_window.mainloop()

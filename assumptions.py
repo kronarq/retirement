@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 
 def update_assumptions(wb, ws, username):
@@ -87,7 +88,12 @@ def assumptions_window(assumptions_input_window, wb, ws, username):
     ToolTip(social_cola_entry, "Enter social security COLA, typically matches inflation")
     ToolTip(medicare_65_entry, "Enter estimated save with Medicare at 65, assuming half cost before Medicare, should be much less")
 
-    submit_button = tk.Button(assumptions_input_window, text="Submit", command=lambda: update_assumptions(wb, ws, username))
+    def submit_and_close():
+        update_assumptions(wb, ws, username)
+        messagebox.showinfo("Saved", "Data saved successfully")
+        assumptions_input_window.destroy()
+
+    submit_button = tk.Button(assumptions_input_window, text="Submit", command=submit_and_close)
     submit_button.pack()
 
     assumptions_input_window.mainloop()
